@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./js/c3-0.5.1/c3.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.min.js"></script>
+    <script src="./js/c3-0.5.1/c3.min.js"></script>
+</head>
+<body>
+    <div id="chart"></div>
+    <script>
+        var i = 1000;
+        var data = Array.apply(null, {length: i}).map(Function.call, Math.random);
+
+        var chart = c3.generate({
+            bindto: '#chart',
+            data: {
+            columns: [
+                ['data1',  ...data],
+            ]
+            }
+        });
+
+        setInterval(function() {
+            chart.flow({
+                columns: [['data1', Math.random()]],
+                length: 0
+            })
+        }, 100)
+    </script>
+    
+</body>
+</html>

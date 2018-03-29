@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./js/rickshaw.min.css">
+    <script src="./js/d3.min.js"></script>
+    <script src="./js/d3.layout.min.js"></script>
+    <script src="./js/rickshaw.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="chart"></div>
+    <script>
+    var myData = [];
+    var N = 1000;
+    for (var i=0; i<N; i++) {
+        myData.push({x: i, y: Math.random()})
+    }
+
+    var graph = new Rickshaw.Graph( {
+        element: document.querySelector("#chart"), 
+        height: 300, 
+        renderer: "line",
+        series: [{
+            color: 'steelblue',
+            data: myData
+        }]
+    });
+ 
+    graph.render();
+
+    setInterval(function () {
+        i++;
+        myData.push({x: i, y: Math.random()});
+        graph.update();
+    }, 100)
+    </script>
+    
+</body>
+</html>

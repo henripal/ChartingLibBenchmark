@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="http://dygraphs.com/dygraph.js"></script>
+</head>
+<body>
+    <div id="div_g" style="width:600px; height:300px;"></div>
+</body>
+<script>
+     $(document).ready(function () {
+      var data = [];
+      var t = new Date();
+      for (var i = 0; i <= 1000; i++) {
+        var x = i;
+        data.push([x, Math.random()]);
+      }
+
+      var g = new Dygraph(document.getElementById("div_g"), data,
+                          {
+                            drawPoints: true,
+                            showRoller: true,
+                            valueRange: [0.0, 1.2],
+                            labels: ['Time', 'Random']
+                          });
+      // It sucks that these things aren't objects, and we need to store state in window.
+      var i = 1000;
+      window.intervalId = setInterval(function() {
+        var x = i;  // current time
+        i += 1;
+        var y = Math.random();
+        data.push([x, y]);
+        g.updateOptions( { 'file': data } );
+      }, 100);
+    }
+);
+</script>
+</html>

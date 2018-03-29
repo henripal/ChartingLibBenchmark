@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <title>Document</title>
+</head>
+<body>
+   <div id="container" style="width:100%; height:400px;"></div> 
+</body>
+<script>
+
+    Highcharts.chart('container',  {
+        chart: {
+            events: {
+                load: function() {
+                    var series = this.series[0];
+                    setInterval(function() {
+                        var x = (new Date()).getTime();
+                        var y = Math.round(Math.random()*100);
+                        series.addPoint([x, y], true)
+                    }, 100)
+                }
+            }
+        },
+        series: [{
+            name: 'random', 
+            data: (function() {
+                var data = [],
+                time = (new Date()).getTime(),
+                i;
+
+            for (i=-999; i<=0; i += 1) {
+                data.push([
+                    time + i * 1000, 
+                    Math.round(Math.random() * 100)
+                ]);
+            }
+            return data;
+            }())
+        }]
+
+    })
+
+</script>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/taucharts/latest/tauCharts.min.css"></script>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="https://cdn.jsdelivr.net/taucharts/latest/tauCharts.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="line"></div>
+    <script>
+        var chart = new tauCharts.Chart({
+            type: 'line',
+            x: ['x'],
+            y: ['y'],
+            color: 'type',
+    
+            guide: [
+                {
+                    x: {autoScale: false},
+                    y: {autoScale: false, min: -1.5, max: 1.5},
+                    interpolate: 'basis'
+                }
+            ],
+    
+            settings: {
+                animationSpeed: 0
+            },
+    
+            data: _.times(1000, _.identity).reduce(function (memo, i) {
+                var x = i * (Math.PI / 100);
+                return memo.concat([
+                    {
+                        x: x,
+                        y: Math.sin(x),
+                        type: 'sin'
+                    },
+                ]);
+            }, []),
+    
+            plugins: [
+                tauCharts.api.plugins.get('trendline')({showPanel:false})
+            ]
+            });
+    
+        chart.renderTo('#line');
+    
+        setInterval(function () {
+            var inst = chart;
+            var data = inst.getData();
+            var last = data[data.length - 1];
+            var newX = last.x + (Math.PI / 100);
+            // data.shift();
+            // data.shift();
+            data.push({x: newX, y: Math.sin(newX), type: 'sin'});
+            inst.setData(data);
+        }, 100);
+        </script>
+    
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+<body>
+    <div id="chart_div"></div>
+<script>
+    google.charts.load('current', {packages: ['corechart', 'line']});
+    google.charts.setOnLoadCallback(drawCurveTypes);
+    var myData = [];
+    var N = 1000;
+    for (var i=0; i<N; i++) {
+        myData.push([i, Math.random()])
+    }
+
+    function drawCurveTypes() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('number', 'X');
+        data.addColumn('number', 'Random');
+
+        data.addRows(myData);
+
+        var options = {
+            series: {
+            1: {curveType: 'function'}
+            }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+        setInterval(function(){
+            data.addRows([[i, Math.random()]])
+            i++;
+            chart.draw(data, options);
+        }, 100)
+    }
+
+
+
+</script>
+</body>
+</html>
